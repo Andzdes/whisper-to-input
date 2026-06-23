@@ -204,13 +204,15 @@ class WhisperTranscriber {
             
             // Add file to payload
             if (speechToTextBackend == context.getString(R.string.settings_option_openai_api) || 
-                speechToTextBackend == context.getString(R.string.settings_option_nvidia_nim)) {
+                speechToTextBackend == context.getString(R.string.settings_option_nvidia_nim) ||
+                speechToTextBackend == context.getString(R.string.settings_option_groq)) {
                 addFormDataPart("file", formDataFilename, fileBody)
             } else if (speechToTextBackend == context.getString(R.string.settings_option_whisper_asr_webservice)) {
                 addFormDataPart("audio_file", formDataFilename, fileBody)
             }
             // Add backend-specific parameters to payload
-            if (speechToTextBackend == context.getString(R.string.settings_option_openai_api)) {
+            if (speechToTextBackend == context.getString(R.string.settings_option_openai_api) ||
+                speechToTextBackend == context.getString(R.string.settings_option_groq)) {
                 addFormDataPart("model", model)
                 addFormDataPart("response_format", "text")
             }
@@ -221,7 +223,8 @@ class WhisperTranscriber {
         }.build()
 
         val requestHeaders: Headers = Headers.Builder().apply {
-            if (speechToTextBackend == context.getString(R.string.settings_option_openai_api)) {
+            if (speechToTextBackend == context.getString(R.string.settings_option_openai_api) ||
+                speechToTextBackend == context.getString(R.string.settings_option_groq)) {
                 // Foolproof message
                 if (apiKey == "") {
                     throw Exception(context.getString(R.string.error_apikey_unset))
@@ -234,6 +237,7 @@ class WhisperTranscriber {
         // Build URL with endpoint-specific parameters
         val url = when (speechToTextBackend) {
             context.getString(R.string.settings_option_openai_api),
+            context.getString(R.string.settings_option_groq),
             context.getString(R.string.settings_option_whisper_asr_webservice) -> {
                 "$endpoint?encode=true&task=transcribe&language=$languageCode&word_timestamps=false&output=txt"
             }

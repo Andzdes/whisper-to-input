@@ -267,7 +267,8 @@ class MainActivity : AppCompatActivity() {
                                 val endpointEditText: EditText = findViewById<EditText>(R.id.field_endpoint)
                                 if (endpointEditText.text.isEmpty() ||
                                     endpointEditText.text.toString() == getString(R.string.settings_option_openai_api_default_endpoint) ||
-                                    endpointEditText.text.toString() == getString(R.string.settings_option_nvidia_nim_default_endpoint)
+                                    endpointEditText.text.toString() == getString(R.string.settings_option_nvidia_nim_default_endpoint) ||
+                                    endpointEditText.text.toString() == getString(R.string.settings_option_groq_default_endpoint)
                                 ) {
                                     endpointEditText.setText(getString(R.string.settings_option_whisper_asr_webservice_default_endpoint))
                                 }
@@ -277,7 +278,8 @@ class MainActivity : AppCompatActivity() {
                                 val endpointEditText: EditText = findViewById<EditText>(R.id.field_endpoint)
                                 if (endpointEditText.text.isEmpty() ||
                                     endpointEditText.text.toString() == getString(R.string.settings_option_openai_api_default_endpoint) ||
-                                    endpointEditText.text.toString() == getString(R.string.settings_option_whisper_asr_webservice_default_endpoint)
+                                    endpointEditText.text.toString() == getString(R.string.settings_option_whisper_asr_webservice_default_endpoint) ||
+                                    endpointEditText.text.toString() == getString(R.string.settings_option_groq_default_endpoint)
                                 ) {
                                     endpointEditText.setText(getString(R.string.settings_option_nvidia_nim_default_endpoint))
                                 }
@@ -285,6 +287,19 @@ class MainActivity : AppCompatActivity() {
                                 modelEditText.setText(getString(R.string.settings_option_nvidia_nim_default_model))
                                 val languageCodeEditText: EditText = findViewById<EditText>(R.id.field_language_code)
                                 languageCodeEditText.setText(getString(R.string.settings_option_nvidia_nim_default_language))
+                            } else if (selectedItem == getString(R.string.settings_option_groq)) {
+                                val endpointEditText: EditText = findViewById<EditText>(R.id.field_endpoint)
+                                if (endpointEditText.text.isEmpty() ||
+                                    endpointEditText.text.toString() == getString(R.string.settings_option_openai_api_default_endpoint) ||
+                                    endpointEditText.text.toString() == getString(R.string.settings_option_whisper_asr_webservice_default_endpoint) ||
+                                    endpointEditText.text.toString() == getString(R.string.settings_option_nvidia_nim_default_endpoint)
+                                ) {
+                                    endpointEditText.setText(getString(R.string.settings_option_groq_default_endpoint))
+                                }
+                                val modelEditText: EditText = findViewById<EditText>(R.id.field_model)
+                                modelEditText.setText(getString(R.string.settings_option_groq_default_model))
+                                val languageCodeEditText: EditText = findViewById<EditText>(R.id.field_language_code)
+                                languageCodeEditText.setText(getString(R.string.settings_option_groq_default_language))
                             }
                         }
                     }
@@ -320,6 +335,7 @@ class MainActivity : AppCompatActivity() {
             val settingItems = arrayOf(
                 SettingStringDropdown(R.id.spinner_speech_to_text_backend, SPEECH_TO_TEXT_BACKEND, listOf(
                     getString(R.string.settings_option_openai_api),
+                    getString(R.string.settings_option_groq),
                     getString(R.string.settings_option_whisper_asr_webservice),
                     getString(R.string.settings_option_nvidia_nim)
                 ), getString(R.string.settings_option_openai_api)),
